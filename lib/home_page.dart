@@ -5,7 +5,7 @@ class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -23,6 +23,20 @@ class _HomePageState extends State<HomePage> {
             notes.length,
             (index) => Card(
               child: ListTile(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CreatePage(
+                        title: notes[index]['title'],
+                        subtitle: notes[index]['subtitle'],
+                      ),
+                    ),
+                  ).then((value) {
+                    notes[index] = value;
+                    setState(() {});
+                  });
+                },
                 leading: const Icon(
                   Icons.book,
                   color: Colors.pink,
@@ -45,7 +59,7 @@ class _HomePageState extends State<HomePage> {
           setState(() {});
         },
         icon: const Icon(Icons.add),
-        label: const Text("Criar"),
+        label: const Text("Add"),
       ),
     );
   }

@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 
 class CreatePage extends StatefulWidget {
-  const CreatePage({Key? key}) : super(key: key);
+  final String? title;
+  final String? subtitle;
+  const CreatePage({
+    Key? key,
+    this.title,
+    this.subtitle,
+  }) : super(key: key);
 
   @override
-  _CreatePageState createState() => _CreatePageState();
+  createState() => _CreatePageState();
 }
 
 class _CreatePageState extends State<CreatePage> {
@@ -22,19 +28,27 @@ class _CreatePageState extends State<CreatePage> {
   }
 
   @override
+  void initState() {
+    title = widget.title;
+    subtitle = widget.subtitle;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Criar"),
+        title: const Text("Create"),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Form(
           key: formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextFormField(
+                initialValue: widget.title,
                 onChanged: (value) {
                   title = value;
                 },
@@ -43,6 +57,7 @@ class _CreatePageState extends State<CreatePage> {
                 decoration: const InputDecoration(labelText: "Title"),
               ),
               TextFormField(
+                initialValue: widget.subtitle,
                 onChanged: (value) {
                   subtitle = value;
                 },
@@ -60,7 +75,7 @@ class _CreatePageState extends State<CreatePage> {
                       onPressed: () {
                         validate();
                       },
-                      child: const Text("Salvar"),
+                      child: const Text("Save"),
                     ),
                   ),
                 ],
